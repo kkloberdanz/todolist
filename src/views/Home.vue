@@ -25,13 +25,13 @@ export default {
 
     methods: {
         deleteTodo(id) {
-            this.todos = this.todos.filter((x) => x.id !== id);
+            this.todos = this.todos.filter(x => x.id !== id);
             axios
                 .delete(`http://127.0.0.1:5000/todos/${id}`)
                 /* eslint-disable no-unused-vars */
-                .then((res) => {})
+                .then(res => {})
                 /* eslint-enable no-unused-vars */
-                .catch((err) => console.log(err));
+                .catch(err => console.log(err));
         },
 
         addTodo(newTodo) {
@@ -41,19 +41,19 @@ export default {
                     title,
                     completed,
                 })
-                .then((res) => (this.todos = res.data))
-                .catch((err) => console.log(err));
+                .then(res => (this.todos = res.data))
+                .catch(err => console.log(err));
         },
     },
 
     created() {
         axios
             .get("http://127.0.0.1:5000/todos")
-            .then((res) => {
+            .then(res => {
                 this.todos = res.data;
                 console.log(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch(err => console.log(err));
     },
 };
 </script>
