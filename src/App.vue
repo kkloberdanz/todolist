@@ -1,85 +1,32 @@
 <template>
-    <div id="app">
-        <Header />
-        <AddTodo @add-todo="addTodo" />
-        <Todos v-bind:todos="todos" @del-todo="deleteTodo" />
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
     </div>
+    <router-view/>
+  </div>
 </template>
 
-<script>
-import Header from './components/layout/Header'
-import Todos from './components/Todos'
-import AddTodo from './components/AddTodo'
-import axios from 'axios'
-
-export default {
-    name: 'App',
-    components: {
-        Header,
-        Todos,
-        AddTodo
-    },
-
-    data() {
-        return {
-            todos: []
-        }
-    },
-
-    methods: {
-        deleteTodo(id) {
-            this.todos = this.todos.filter(x => x.id !== id)
-            axios.delete(`http://127.0.0.1:5000/todos/${id}`)
-                .then(res => {
-                    this.todos = this.todos.filter(x => x.id !== res.id)
-                })
-                .catch(err => console.log(err))
-        },
-
-        addTodo(newTodo) {
-            this.todos.push(newTodo)
-            const {title, completed} = newTodo
-            axios.post('http://127.0.0.1:5000/todos', {
-                title,
-                completed
-            }).then(res => console.log(res))
-            .catch(err => console.log(err))
-        }
-    },
-
-    created() {
-        axios.get('http://127.0.0.1:5000/todos')
-            .then(res => {
-                this.todos = res.data
-                console.log(res.data)
-            })
-            .catch(err => console.log(err))
-    }
-}
-</script>
-
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.4;
+#nav {
+  padding: 30px;
 }
 
-.btn {
-    display: inline-block;
-    border: none;
-    background: #555;
-    color: #fff;
-    padding: 7px 20px;
-    cursor: pointer;
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
-.btn:hover {
-    background: #666;
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
