@@ -59,8 +59,7 @@ def todo_id(this_id):
                 return jsonify(obj)
             return jsonify({})
     elif request.method == 'DELETE':
-        l = [obj for obj in data if str(obj['id']) != this_id]
-        data = l
+        data = [obj for obj in data if str(obj['id']) != this_id]
         return this_id
     else:
         return (400, f'invalid method: {request.method}')
