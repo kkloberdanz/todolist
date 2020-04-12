@@ -10,6 +10,7 @@
 import Header from './components/layout/Header'
 import Todos from './components/Todos'
 import AddTodo from './components/AddTodo'
+import axios from 'axios'
 
 export default {
     name: 'App',
@@ -21,23 +22,7 @@ export default {
 
     data() {
         return {
-            todos: [
-                {
-                    id: 1,
-                    title: "Todo One",
-                    completed: false
-                },
-                {
-                    id: 2,
-                    title: "Todo Two",
-                    completed: false
-                },
-                {
-                    id: 3,
-                    title: "Todo Three",
-                    completed: false
-                },
-            ]
+            todos: []
         }
     },
 
@@ -49,6 +34,15 @@ export default {
         addTodo(newTodo) {
             this.todos.push(newTodo)
         }
+    },
+
+    created() {
+        axios.get('http://127.0.0.1:5000/todos')
+            .then(res => {
+                this.todos = res.data
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
     }
 }
 </script>
