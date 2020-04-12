@@ -10,14 +10,14 @@
 
 <script>
 export default {
-    name: "TodoItem",
-    props: ["todo"],
+    name: 'TodoItem',
+    props: ['todo'],
     methods: {
         markComplete() {
-            this.todo.completed = !this.todo.completed;
+            this.todo.completed = !this.todo.completed
         },
     },
-};
+}
 </script>
 
 <style scoped>
