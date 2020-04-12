@@ -27,19 +27,18 @@ export default {
         deleteTodo(id) {
             this.todos = this.todos.filter(x => x.id !== id)
             axios.delete(`http://127.0.0.1:5000/todos/${id}`)
-                .then(res => {
-                    this.todos = this.todos.filter(x => x.id !== res.id)
-                })
+                /* eslint-disable no-unused-vars */
+                .then(res => { })
+                /* eslint-enable no-unused-vars */
                 .catch(err => console.log(err))
         },
 
         addTodo(newTodo) {
-            this.todos.push(newTodo)
             const {title, completed} = newTodo
             axios.post('http://127.0.0.1:5000/todos', {
                 title,
                 completed
-            }).then(res => console.log(res))
+            }).then(res => this.todos = res.data)
             .catch(err => console.log(err))
         }
     },
