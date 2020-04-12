@@ -9,33 +9,37 @@ app = Flask(__name__)
 CORS(app)
 
 
+def new_id():
+    return uuid.uuid4()
+
+
 data = [
     {
-        'id': 1,
+        'id': new_id(),
         'title': "Todo One",
         'completed': False
     },
     {
-        'id': 2,
+        'id': new_id(),
         'title': "Todo Two",
         'completed': False
     },
     {
-        'id': 3,
+        'id': new_id(),
         'title': "Todo Three",
         'completed': False
     },
 ]
 
 
-@app.route("/todos", methods=['POST', 'GET', 'DELETE'])
+@app.route("/todos", methods=['POST', 'GET'])
 def todos():
     if request.method == 'GET':
         pass
 
     elif request.method == 'POST':
         content = request.json
-        _id = str(uuid.uuid4())
+        _id = new_id()
         content['id'] = _id
         data.append(content)
 
@@ -57,6 +61,7 @@ def todo_id(this_id):
     elif request.method == 'DELETE':
         l = [obj for obj in data if str(obj['id']) != this_id]
         data = l
+        return this_id
     else:
         return (400, f'invalid method: {request.method}')
     print(data)

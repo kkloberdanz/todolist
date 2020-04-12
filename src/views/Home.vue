@@ -25,12 +25,14 @@ export default {
 
     methods: {
         deleteTodo(id) {
-            this.todos = this.todos.filter(x => x.id !== id)
             axios
                 .delete(`http://127.0.0.1:5000/todos/${id}`)
-                /* eslint-disable no-unused-vars */
-                .then(res => {})
-                /* eslint-enable no-unused-vars */
+                .then(
+                    res =>
+                        (this.todos = this.todos.filter(
+                            x => x.id !== res.data,
+                        )),
+                )
                 .catch(err => console.log(err))
         },
 
