@@ -29,10 +29,21 @@ export default {
     methods: {
         deleteTodo(id) {
             this.todos = this.todos.filter(x => x.id !== id)
+            axios.delete(`http://127.0.0.1:5000/todos/${id}`)
+                .then(res => {
+                    this.todos = this.todos.filter(x => x.id !== res.id)
+                })
+                .catch(err => console.log(err))
         },
 
         addTodo(newTodo) {
             this.todos.push(newTodo)
+            const {title, completed} = newTodo
+            axios.post('http://127.0.0.1:5000/todos', {
+                title,
+                completed
+            }).then(res => console.log(res))
+            .catch(err => console.log(err))
         }
     },
 

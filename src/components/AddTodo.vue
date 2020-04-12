@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { v4 as uuidv4 } from 'uuid';
 
 export default {
     name: "AddTodo",
@@ -24,7 +23,6 @@ export default {
             e.preventDefault();
                 if (this.title) {
                 const newTodo = {
-                    id: uuidv4(),
                     title: this.title,
                     completed: false
                 }
